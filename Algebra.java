@@ -25,43 +25,121 @@ public class Algebra {
 
 	// Returns x1 + x2
 	public static int plus(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		// Edge case- if x2 is a negative integer
+		while (x2 < 0) {
+			x1--;
+			x2++;
+		}
+		// If x2 is a positive integer or 0
+		for (int i = 0; i < x2; i++) {
+			x1++;
+		}
+		return x1;
 	}
 
 	// Returns x1 - x2
 	public static int minus(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		// Edge case- if x2 is a negative integer
+		while (x2 < 0) {
+			x1++;
+			x2++;
+		}
+		// If x2 is a positive integer or 0
+		for (int i = 0; i < x2; i++) {
+			x1--;
+		}
+		return x1;
 	}
 
 	// Returns x1 * x2
 	public static int times(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		int sum = 0;
+		// Edge case- if x2 is a negative integer
+		while (x2 < 0) {
+			sum = minus(sum, x1);
+			x2++;
+		}
+		// If x2 is a positive integer
+		for (int i = 0; i < x2; i++) {
+			sum = plus(sum, x1);
+		}
+		return sum;
 	}
-
+	
 	// Returns x^n (for n >= 0)
 	public static int pow(int x, int n) {
-		// Replace the following statement with your code
-		return 0;
+		if (n == 0) {
+			return 1;
+		} else {
+			int num = x;
+			for (int i = 1; i < n; i++) {
+				num = times(num, x);
+			}
+			return num;
+		}
 	}
 
 	// Returns the integer part of x1 / x2 
 	public static int div(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		int countDiv = 0;
+		// Edge case- ERROR
+		if (x2 == 0) {
+			return -99999;
+		}
+		// Edge case- both equal
+		if (x1 == x2) {
+			return 1;
+		}
+		// Checking if only one of the two parameters is negative 
+		boolean onlyOneIsNegative = false;
+		if ((x1 < 0) != (x2 < 0)) {
+			onlyOneIsNegative = true;
+		}
+		// Turning negative parameters to positive (equals to multiplying by -1)
+		if (x1 < 0) {
+			x1 = minus(0, x1);
+		}
+		if (x2 < 0) {
+			x2 = minus(0, x2);
+		}
+		
+		while ( x1 >= x2) {
+			x1 = minus(x1, x2);
+			countDiv++;
+		}
+		if (onlyOneIsNegative) {
+			countDiv = minus(0, countDiv);
+		}
+		return countDiv;
 	}
 
 	// Returns x1 % x2
 	public static int mod(int x1, int x2) {
-		// Replace the following statement with your code
-		return 0;
+		int division = div(x1, x2);
+		division = times(division, x2);
+		int modulo = minus(x1, division);
+		return modulo;
 	}	
 
 	// Returns the integer part of sqrt(x) 
 	public static int sqrt(int x) {
-		// Replace the following statement with your code
-		return 0;
+		// edge case- ERROR
+		if (x < 0) {
+			return -99999;
+		} else {
+			int num = 0;
+			while (pow(num, 2) <=x) 
+			{
+				if (pow(num, 2) == x) {
+					return num;
+				}
+				if (pow(plus(num, 1), 2) > x) {
+					return num;
+				}
+				num++;
+			}
+			return num;	
+		}
 	}	  	  
+	
 }
